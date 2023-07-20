@@ -1,0 +1,2 @@
+file(GLOB_RECURSE JSON2PB_SOURCES "${PROJECT_SOURCE_DIR}/src/json2pb/*.cpp")
+add_library(json2pb ${JSON2PB_SOURCES} ${PROTO_SRCS})

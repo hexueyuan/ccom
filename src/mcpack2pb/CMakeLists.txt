@@ -1,0 +1,16 @@
+file(GLOB_RECURSE MCPACK2PB_SOURCES "${PROJECT_SOURCE_DIR}/src/mcpack2pb/*.cpp")
+
+# PROJECT_BINARY_DIR: 当前执行cmake的路径
+set(PROTO_SOURCE_DIR ${PROJECT_BINARY_DIR}/proto)
+file(MAKE_DIRECTORY ${PROTO_SOURCE_DIR})
+
+include(CompileProto)
+set(PROTO_FILES idl_options.proto)
+if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+    set(PROTOBUF_PROTOC_EXECUTABLE ${PROJECT_SOURCE_DIR}/bin/protoc-3.20.1-rc1-Darwin-arm64)
+endif()
+set(PROTOBUF_PROTOC_FLAGS ${PROTOBUF_PROTOC_FLAGS} -I${PROJECT_SOURCE_DIR}/src)
+compile_proto(${PROJECT_SOURCE_DIR}/src ${PROTO_FILES} ${PROTO_SOURCE_DIR}
+    PROTO_HDRS PROTO_SRCS)
+include_directories(${PROTO_SOURCE_DIR})
+add_library(mcpack2pb ${MCPACK2PB_SOURCES} ${PROTO_SRCS})
