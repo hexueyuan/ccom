@@ -4,6 +4,7 @@
 
 void* work_main(void*) {
     std::cout << "do" << std::endl;
+    return nullptr;
 }
 
 int main(int argc, char** argv) {
